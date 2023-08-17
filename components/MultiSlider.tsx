@@ -4,10 +4,12 @@ import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid"
 
+let totalSlides = 6
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 6,
+    items: totalSlides,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -29,6 +31,10 @@ const MultiSlider: React.FC<{ maxSlides?: number; children: ReactNode[] }> = ({
 }) => {
   const carouselRef = useRef<Carousel | null>(null)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
+
+  if (maxSlides) {
+    totalSlides = maxSlides
+  }
 
   const showPreviousButton = currentSlide > 0
 
@@ -65,7 +71,9 @@ const MultiSlider: React.FC<{ maxSlides?: number; children: ReactNode[] }> = ({
         ref={carouselRef}
         centerMode={true}
         afterChange={(previousSlide, { currentSlide }) =>
-          setCurrentSlide(currentSlide)
+          setCurrentSlide((prev) =>
+            previousSlide > currentSlide ? prev - 1 : prev + 1
+          )
         }
       >
         {children}
@@ -73,7 +81,7 @@ const MultiSlider: React.FC<{ maxSlides?: number; children: ReactNode[] }> = ({
       <button
         onClick={() =>
           carouselRef?.current?.next?.(
-            currentSlide - 1 < 0 ? children.length - 1 : currentSlide - 1
+            currentSlide == children.length - 1 ? 0 : currentSlide + 1
           )
         }
         type="button"
@@ -86,7 +94,7 @@ const MultiSlider: React.FC<{ maxSlides?: number; children: ReactNode[] }> = ({
           type="button"
           onClick={() =>
             carouselRef?.current?.previous?.(
-              currentSlide + 1 > children.length - 1 ? 0 : currentSlide + 1
+              currentSlide == 0 ? children.length - 1 : currentSlide - 1
             )
           }
           className="shadow absolute left-0 top-1/2 -translate-y-1/2 -mt-2 rounded-tr rounded-br h-24 text-gray-500/90 bg-white inline-block px-2"
