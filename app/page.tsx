@@ -28,13 +28,30 @@ const beautyItems = [
 ]
 
 const otherItems = [
-  "https://rukminim1.flixcart.com/image/250/250/xif0q/hand-messenger-bag/r/k/7/-original-imagkycgwvwpzucm.jpeg?q=90",
-
-  "https://rukminim1.flixcart.com/image/250/250/xif0q/sunglass/7/m/m/m-6090-single-sheet-black-piraso-original-imagkfkfpezkgrhx.jpeg?q=90",
-
-  "https://rukminim1.flixcart.com/image/250/250/xif0q/facial-kit/f/s/b/40-pearl-facial-kit-6-step-facial-single-use-mini-facial-kit-for-original-imaggaxh8chpxczy.jpeg?q=90",
-
-  "https://rukminim1.flixcart.com/image/250/250/ks3jjbk0/portable-laptop-table/v/s/k/rubber-wood-study-table-for-bed-study-laptop-table-with-original-imag5qhgyz4gkahh.jpeg?q=90",
+  {
+    heading: "Totes",
+    subheading: "Min. 70% Off",
+    image:
+      "https://rukminim1.flixcart.com/image/250/250/xif0q/hand-messenger-bag/r/k/7/-original-imagkycgwvwpzucm.jpeg?q=90",
+  },
+  {
+    heading: "Sunglasses",
+    subheading: "Min. 50% Off",
+    image:
+      "https://rukminim1.flixcart.com/image/250/250/xif0q/sunglass/7/m/m/m-6090-single-sheet-black-piraso-original-imagkfkfpezkgrhx.jpeg?q=90",
+  },
+  {
+    heading: "Facial Kit",
+    subheading: "Min. 50% Off",
+    image:
+      "https://rukminim1.flixcart.com/image/250/250/xif0q/facial-kit/f/s/b/40-pearl-facial-kit-6-step-facial-single-use-mini-facial-kit-for-original-imaggaxh8chpxczy.jpeg?q=90",
+  },
+  {
+    heading: "Furniture",
+    subheading: "Min. 70% Off",
+    image:
+      "https://rukminim1.flixcart.com/image/250/250/ks3jjbk0/portable-laptop-table/v/s/k/rubber-wood-study-table-for-bed-study-laptop-table-with-original-imag5qhgyz4gkahh.jpeg?q=90",
+  },
 ]
 
 export default function Home() {
@@ -65,26 +82,9 @@ export default function Home() {
 
         <section className="grid grid-cols-3">
           <div className="grid grid-cols-2 bg-white p-4 justify-center gap-2">
-            <Item
-              heading="Totes"
-              subheading="Min. 70% Off"
-              image={otherItems[0]}
-            />
-            <Item
-              heading="Sunglasses"
-              subheading="Min. 50% Off"
-              image={otherItems[1]}
-            />
-            <Item
-              heading="Facial Kit"
-              subheading="Min. 50% Off"
-              image={otherItems[2]}
-            />
-            <Item
-              heading="Furniture"
-              subheading="Min. 70% Off"
-              image={otherItems[3]}
-            />
+            {otherItems.map((item) => (
+              <Item {...item} key={item.image} />
+            ))}
           </div>
 
           <img
